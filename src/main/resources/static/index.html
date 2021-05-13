@@ -10,19 +10,33 @@
     <a href="hello">hello</a> 
  회원가입
     <form action="join" method="post">
-    id:<input type="text" name="email">
+    email:<input type="text" name="email">
     pwd:<input type="password" name="password">
     <input type="submit">
     </form>
 <br>
 로그인
     <form action="login" method="post">
-        id:<input type="text" name="email">
+        email:<input type="text" name="email">
         pwd:<input type="password" name="password">
         <input type="submit">
         </form>
+        <br>
+정보수정
+    <form action="update" method="post">
+        email:<input type="text" name="email">
+        pwd:<input type="password" name="password">
+        <input type="submit">
+        </form>
+        <br>
+        회원탈퇴
+        <form action="delete" method="post">
+            idnumber:<input type="text" name="id">
+            <input type="submit">
+            </form>      
 <a href="selectbyid">selectbyid</a>
 <a href="selectall">selectall</a>
+<a href="pagelist">pagelist</a>
 
 </body>
 </html>

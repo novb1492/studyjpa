@@ -2,11 +2,19 @@ package com.example.demo.controller;
 
 import java.util.function.Supplier;
 
+import javax.persistence.Transient;
+import javax.transaction.Transactional;
+
 import com.example.demo.model.roletype;
 import com.example.demo.model.user;
 import com.example.demo.repository.userrepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +28,37 @@ public class controller {
   
   @Autowired//의존성 주입 controller가 메모리에 뜰때 autowired가같이 띄어준다
   private userrepository userrepository;///클래스변수로 적어야함
+
+  @PostMapping("delete")
+  @DeleteMapping("delete")
+    public String delete(@RequestParam("id")int id)
+    {
+      userrepository.deleteById(id);
+      return "삭제되어습니다";
+    }
+ 
+  @Transactional///더티 첵킹 이거 정보처리기능사 그거 영속성/일관성/격리성 같다
+  @PostMapping("update")
+  public String update(user users)
+  {
+    user user=userrepository.findById(5).orElseThrow(()->{
+      return null;
+    });//영속화시키는것
+    
+    user.setEmail(users.getEmail());
+    user.setPassword(users.getPassword());
+    //userrepository.save(user);///////update는 위에 조건을 걸어 준다 그러면 거길 알아서 찾아가서 바꾼다  혹은 이걸지우고 ->@transactional 더티책킹
+
+    check(user.getEmail(), user.getPassword());
+    return "정보수정완료";
+
+  }
+
+  @GetMapping("pagelist")
+  public void pageList(@PageableDefault(size=2,sort = "id",direction = Sort.Direction.DESC)Pageable pageable)
+  {
+    /// find all 왜 오류나는거지
+  }
 
   @GetMapping("selectall")
   public List<user>array()
