@@ -25,26 +25,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Entity///user클래스가 mysql에 자동으로 테이블을 만든다
-public class boards {
+public class reply {
     
+     
     @Id//primary key라고 알려준다
     @GeneratedValue(strategy = GenerationType.IDENTITY)//프로젝트에 연결된 db의 넘버링 전략 따라감 ex auto_increment처럼
-    private int bid;
+    private int rid;
     
-    @Column(nullable = false,length = 100)//not null,글자수 제한
-    private String btitle;
     
-    @Lob//대용량 데이터
-    private String bcontent;
-    
-    @ColumnDefault("0")/////기본 설정 
-    private int count;
+    @Column(nullable = false,length = 200)
+    private String rcontent;
+
+    @ManyToOne
+    @JoinColumn(name="bid")
+    private boards boards;
 
     @ManyToOne//1:n 한면의 사람이 여러개의 글을 쓸수있다
     @JoinColumn(name="uid")
     private user user;
 
     @CreationTimestamp///시간이 자동으로 들어감
-    private Timestamp bcreated;
+    private Timestamp rcreated;
 
 }
