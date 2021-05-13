@@ -1,5 +1,6 @@
+  
 <!DOCTYPE html>
-<html lang="en">
+<html xmln:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,15 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="hello">hello</a> 
-
-    <form action="join" method="post">
-    id:<input type="text" name="email">
-    pwd:<input type="password" name="password">
-    <input type="submit">
-    </form>
-
-
-
+    <p th:text="'기본'+${email}+${password}">손님</p>
+    <!--동적페이지는 templates에 넣지 않으면 오류가 난다-->
 </body>
 </html>

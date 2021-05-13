@@ -1,15 +1,17 @@
 package com.example.demo.model;
 
 import java.sql.Timestamp;
-
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
@@ -43,6 +45,9 @@ public class boards {
     @ManyToOne//1:n 한면의 사람이 여러개의 글을 쓸수있다
     @JoinColumn(name="uid")
     private user user;
+
+    @OneToMany(mappedBy = "boards" ,fetch=FetchType.EAGER)//하나의 개시글에는 여러개의 댓글 제 1정규형 위반 때매 컬럼 생성x
+    private List<reply>reply;///여기서 바로 array list쓰면 빌드 실패함
 
     @CreationTimestamp///시간이 자동으로 들어감
     private Timestamp bcreated;
