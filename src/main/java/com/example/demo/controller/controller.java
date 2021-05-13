@@ -33,7 +33,12 @@ public class controller {
   @DeleteMapping("delete")
     public String delete(@RequestParam("id")int id)
     {
-      userrepository.deleteById(id);
+      try {
+        userrepository.deleteById(id);
+      } catch (Exception e) {
+        return "삭제실패";
+      }
+
       return "삭제되어습니다";
     }
  

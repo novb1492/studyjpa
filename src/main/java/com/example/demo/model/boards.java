@@ -22,10 +22,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Data//getter setter대신
+@NoArgsConstructor//bean생성자
+@AllArgsConstructor//전체생정자
+@Builder//빌더패턴 나중에 알게된다
 @Entity///user클래스가 mysql에 자동으로 테이블을 만든다
 public class boards {
     
